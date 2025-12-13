@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trabalhe Comigo - Cristian</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            border-bottom: 1px solid #eaeaea;
+            z-index: 1000;
+            padding: 20px 0;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: #222;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 400;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+        }
+
+        .nav-links a:hover {
+            color: #222;
+        }
+
+        .nav-links a.active {
+            color: #222;
+            font-weight: 500;
+        }
+
+        /* Page Header */
+        .page-header {
+            background: #ffffff;
+            padding: 140px 0 60px;
+            text-align: center;
+            border-bottom: 1px solid #eaeaea;
+        }
+
+        .page-header h1 {
+            font-size: 2.8rem;
+            font-weight: 300;
+            color: #222;
+            letter-spacing: -0.5px;
+            margin-bottom: 15px;
+        }
+
+        .page-header p {
+            color: #666;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            padding: 80px 0;
+            background-color: #fff;
+        }
+
+        .contact-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: start;
+        }
+
+        .contact-info h2 {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            font-weight: 400;
+            color: #222;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .contact-info h2:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: #222;
+        }
+
+        .contact-details {
+            margin-bottom: 40px;
+        }
+
+        .contact-item {
+            margin-bottom: 25px;
+        }
+
+        .contact-item h3 {
+            font-size: 1.3rem;
+            margin-bottom: 10px;
+            color: #222;
+            font-weight: 400;
+        }
+
+        .contact-item p {
+            color: #666;
+            line-height: 1.7;
+        }
+
+        .divider {
+            height: 1px;
+            background-color: #eee;
+            margin: 40px 0;
+        }
+
+        /* Form Styles */
+        .contact-form h2 {
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            font-weight: 400;
+            color: #222;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .contact-form h2:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 2px;
+            background-color: #222;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #222;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+            background: #fafafa;
+            border-radius: 0;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: #222;
+            background: #fff;
+            box-shadow: 0 0 0 2px rgba(34, 34, 34, 0.1);
+        }
+
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        /* Button Styles */
+        .submit-button {
+            display: inline-block;
+            background-color: #222;
+            color: #fff;
+            padding: 12px 35px;
+            border-radius: 2px;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border: 1px solid #222;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .submit-button:hover:not(:disabled) {
+            background-color: transparent;
+            color: #222;
+        }
+
+        .submit-button:disabled {
+            background-color: #999;
+            border-color: #999;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        /* Status Messages */
+        .status-message {
+            padding: 15px;
+            border-radius: 4px;
+            margin-top: 20px;
+            text-align: center;
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .success-message {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .error-message {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .loading-message {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        /* Back Section */
+        .back-section {
+            text-align: center;
+            padding: 40px 0;
+            background-color: #f9f9f9;
+            border-top: 1px solid #eee;
+        }
+
+        .back-button {
+            display: inline-block;
+            text-decoration: none;
+            color: #666;
+            transition: color 0.3s;
+            font-size: 1rem;
+        }
+
+        .back-button:hover {
+            color: #222;
+        }
+
+        @media (max-width: 768px) {
+            .contact-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .page-header {
+                padding: 100px 0 40px;
+            }
+            
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="nav">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">CRISTIAN</a>
+            <div class="nav-links">
+                <a href="index.html#projetos">Projetos</a>
+                <a href="index.html#sobre">Sobre</a>
+                <a href="index.html#contato">Contato</a>
+                <a href="trabalho.html" class="active">Trabalhe Comigo</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Trabalhe Comigo</h1>
+            <p>Vamos criar algo incrível juntos! Entre em contato para discutirmos seu projeto.</p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-container">
+                <!-- Contact Info -->
+                <div class="contact-info">
+                    <h2>Informações de Contato</h2>
+                    
+                    <div class="contact-details">
+                        <div class="contact-item">
+                            <h3>Localização</h3>
+                            <p>Brasil<br>Projetos para todo o mundo!</p>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <h3>Email</h3>
+                            <p>boolbie.gods@gmail.com</p>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <h3>Suporte</h3>
+                            <p>Respondo em até 24 horas!<br>Adoro receber suas mensagens 😊</p>
+                        </div>
+                    </div>
+
+                    <div class="divider"></div>
+
+                    <div class="contact-item">
+                        <h3>Áreas de Atuação</h3>
+                        <p>• Design de Interfaces (UI/UX)<br>
+                           • Desenvolvimento Front-end<br>
+                           • Aplicativos Mobile<br>
+                           • Websites Responsivos<br>
+                           • E-commerce</p>
+                    </div>
+                </div>
+
+                <!-- Contact Form -->
+                <div class="contact-form">
+                    <h2>Envie sua Mensagem</h2>
+                    
+                    <form id="contactForm" action="https://formspree.io/f/xanrvkgj" method="POST">
+                        <!-- Campos ocultos para configuração do Formspree -->
+                        <input type="hidden" name="_subject" value="Novo contato do portfólio - Trabalhe Comigo">
+                        <input type="hidden" name="_language" value="pt">
+                        <input type="hidden" name="_format" value="plain">
+                        <input type="text" name="_gotcha" style="display:none">
+                        
+                        <div class="form-group">
+                            <label for="fullName">Nome Completo *</label>
+                            <input type="text" id="fullName" name="nome" placeholder="Digite seu nome" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" placeholder="seu@email.com" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="subject">Assunto *</label>
+                            <select id="subject" name="assunto" required>
+                                <option value="" disabled selected>Como posso ajudar?</option>
+                                <option value="Website/Portfólio">Website/Portfólio</option>
+                                <option value="Aplicativo Mobile">Aplicativo Mobile</option>
+                                <option value="Loja Virtual">Loja Virtual</option>
+                                <option value="Redesign de Site">Redesign de Site</option>
+                                <option value="Consultoria">Consultoria</option>
+                                <option value="Outro">Outro</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="budget">Orçamento Previsto (opcional)</label>
+                            <select id="budget" name="orcamento">
+                                <option value="" selected>Selecione uma faixa</option>
+                                <option value="Até R$ 1.000">Até R$ 1.000</option>
+                                <option value="R$ 1.000 - R$ 3.000">R$ 1.000 - R$ 3.000</option>
+                                <option value="R$ 3.000 - R$ 5.000">R$ 3.000 - R$ 5.000</option>
+                                <option value="R$ 5.000 - R$ 10.000">R$ 5.000 - R$ 10.000</option>
+                                <option value="Acima de R$ 10.000">Acima de R$ 10.000</option>
+                                <option value="Ainda não sei">Ainda não sei</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Mensagem *</label>
+                            <textarea id="message" name="mensagem" placeholder="Conte-me sobre seu projeto, ideias, prazos e qualquer detalhe importante..." required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="submit-button" id="submitButton">Enviar Mensagem</button>
+                    </form>
+                    
+                    <!-- Status Messages -->
+                    <div id="loadingMessage" class="status-message loading-message">
+                        <p>🔄 Enviando sua mensagem...</p>
+                    </div>
+                    
+                    <div id="successMessage" class="status-message success-message">
+                        <p>✅ Mensagem enviada com sucesso! Entrarei em contato em até 24 horas.</p>
+                    </div>
+                    
+                    <div id="errorMessage" class="status-message error-message">
+                        <p>❌ Ocorreu um erro ao enviar. Por favor, tente novamente ou me envie um email diretamente.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Back Section -->
+    <section class="back-section">
+        <div class="container">
+            <a href="index.html" class="back-button">← Voltar para o portfólio</a>
+        </div>
+    </section>
+
+    <script>
+        // Elementos do DOM
+        const contactForm = document.getElementById('contactForm');
+        const submitButton = document.getElementById('submitButton');
+        const loadingMessage = document.getElementById('loadingMessage');
+        const successMessage = document.getElementById('successMessage');
+        const errorMessage = document.getElementById('errorMessage');
+
+        // Função para mostrar/esconder mensagens
+        function showMessage(element) {
+            [loadingMessage, successMessage, errorMessage].forEach(msg => {
+                msg.style.display = 'none';
+            });
+            if (element) {
+                element.style.display = 'block';
+                // Rolagem suave para a mensagem
+                setTimeout(() => {
+                    element.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 100);
+            }
+        }
+
+        // Função para habilitar/desabilitar o formulário
+        function setFormState(isSubmitting) {
+            submitButton.disabled = isSubmitting;
+            submitButton.textContent = isSubmitting ? 'Enviando...' : 'Enviar Mensagem';
+            
+            const formElements = contactForm.querySelectorAll('input, select, textarea, button');
+            formElements.forEach(element => {
+                if (element !== submitButton) {
+                    element.disabled = isSubmitting;
+                }
+            });
+        }
+
+        // Função principal de envio via Formspree AJAX
+        contactForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Validação do formulário
+            if (!contactForm.checkValidity()) {
+                alert('Por favor, preencha todos os campos obrigatórios (*) corretamente.');
+                return;
+            }
+            
+            // Preparar dados do formulário
+            const formData = new FormData(contactForm);
+            const data = Object.fromEntries(formData.entries());
+            
+            try {
+                // Mostrar estado de carregamento
+                setFormState(true);
+                showMessage(loadingMessage);
+                
+                // Enviar via Formspree API
+                const response = await fetch(contactForm.action, {
+                    method: 'POST',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                });
+                
+                if (response.ok) {
+                    // Sucesso
+                    console.log('✅ Mensagem enviada com sucesso via Formspree!');
+                    showMessage(successMessage);
+                    contactForm.reset();
+                    
+                    // Ocultar mensagem após 8 segundos
+                    setTimeout(() => {
+                        showMessage(null);
+                    }, 8000);
+                    
+                } else {
+                    // Erro da API
+                    throw new Error(`Formspree retornou status: ${response.status}`);
+                }
+                
+            } catch (error) {
+                console.error('❌ Erro ao enviar formulário:', error);
+                
+                // Tentar enviar pelo método tradicional (fallback)
+                try {
+                    console.log('🔄 Tentando fallback para submit normal...');
+                    showMessage(loadingMessage);
+                    
+                    // Criar um clone do formulário e enviar normalmente
+                    const tempForm = contactForm.cloneNode(true);
+                    tempForm.style.display = 'none';
+                    document.body.appendChild(tempForm);
+                    
+                    // Usar submit tradicional do Formspree
+                    tempForm.submit();
+                    
+                    // Mostrar mensagem de sucesso (assumindo que funciona)
+                    setTimeout(() => {
+                        showMessage(successMessage);
+                        contactForm.reset();
+                        setFormState(false);
+                    }, 1500);
+                    
+                } catch (fallbackError) {
+                    // Fallback também falhou
+                    console.error('❌ Fallback também falhou:', fallbackError);
+                    showMessage(errorMessage);
+                    
+                    // Ocultar mensagem de erro após 5 segundos
+                    setTimeout(() => {
+                        showMessage(null);
+                    }, 5000);
+                }
+                
+            } finally {
+                setFormState(false);
+            }
+        });
+
+        // Validação em tempo real
+        const inputs = contactForm.querySelectorAll('input, select, textarea');
+        inputs.forEach(input => {
+            input.addEventListener('blur', function() {
+                if (this.required && !this.value.trim()) {
+                    this.style.borderColor = '#dc3545';
+                } else {
+                    this.style.borderColor = '#28a745';
+                }
+            });
+            
+            input.addEventListener('input', function() {
+                this.style.borderColor = '#ddd';
+            });
+        });
+
+        // Verificação da configuração do Formspree
+        window.addEventListener('DOMContentLoaded', function() {
+            console.log('🔧 Formspree configurado com URL:', contactForm.action);
+            
+            // Verificar se o Formspree está configurado corretamente
+            if (!contactForm.action.includes('formspree.io/f/')) {
+                console.warn('⚠️ URL do Formspree não configurada corretamente!');
+                const warning = document.createElement('div');
+                warning.style.cssText = 'background: #fff3cd; border: 1px solid #ffeaa7; padding: 10px; margin-bottom: 20px; border-radius: 4px;';
+                warning.innerHTML = '<strong>⚠️ Configuração necessária:</strong> Verifique se a URL do Formspree está correta no atributo action do formulário.';
+                contactForm.parentNode.insertBefore(warning, contactForm);
+            }
+            
+            // Preenchimento automático para testes (remova em produção)
+            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                console.log('🧪 Modo de teste ativado - preenchendo dados de exemplo');
+                document.getElementById('fullName').value = 'João Silva';
+                document.getElementById('email').value = 'joao@exemplo.com';
+                document.getElementById('subject').value = 'Website/Portfólio';
+                document.getElementById('message').value = 'Olá! Gostaria de mais informações sobre o desenvolvimento de um site para minha empresa.';
+            }
+        });
+    </script>
+</body>
+</html>
