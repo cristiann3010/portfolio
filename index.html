@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfólio - Cristian</title>
     
-    <!-- FAVICON - Ícone do site -->
     <link rel="icon" type="image/png" href="assets/img5.png">
     <link rel="apple-touch-icon" href="assets/img5.png">
     <link rel="shortcut icon" href="assets/img5.png">
@@ -22,6 +21,57 @@
             background-color: #f5f5f5;
             color: #333;
             line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ===== ANIMAÇÕES ===== */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .container {
@@ -30,7 +80,86 @@
             padding: 0 20px;
         }
 
-        /* Header/Hero Section COM FOTO */
+        /* Navigation */
+        .nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid #eaeaea;
+            z-index: 1000;
+            padding: 20px 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav.scrolled {
+            padding: 15px 0;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: #222;
+            text-decoration: none;
+            letter-spacing: 1px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 35px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #555;
+            font-weight: 400;
+            transition: color 0.3s;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+            position: relative;
+        }
+
+        .nav-links a:not(.cta-button)::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #222;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:not(.cta-button):hover::after,
+        .nav-links a:not(.cta-button).active::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #222;
+        }
+
+        .nav-links .cta-button {
+            padding: 8px 25px;
+            margin: 0;
+        }
+
+        /* Hero Section */
         .hero {
             background: #ffffff;
             padding: 140px 0 60px;
@@ -44,6 +173,10 @@
             grid-template-columns: 1fr 400px;
             gap: 60px;
             align-items: center;
+        }
+
+        .hero-text {
+            animation: fadeInLeft 0.8s ease;
         }
 
         .hero-text h1 {
@@ -64,6 +197,7 @@
 
         .hero-image {
             text-align: center;
+            animation: fadeInRight 0.8s ease;
         }
 
         .profile-photo {
@@ -73,6 +207,13 @@
             object-fit: cover;
             border: 3px solid #f0f0f0;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .profile-photo:hover {
+            transform: scale(1.05) rotate(3deg);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.15);
         }
 
         .cta-button {
@@ -89,11 +230,33 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             font-size: 0.9rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.5s, height 0.5s;
+        }
+
+        .cta-button:hover::before {
+            width: 300px;
+            height: 300px;
         }
 
         .cta-button:hover {
             background-color: transparent;
             color: #222;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
         .secondary-button {
@@ -106,55 +269,6 @@
         .secondary-button:hover {
             background-color: #222;
             color: #fff;
-        }
-
-        /* Navigation */
-        .nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.98);
-            border-bottom: 1px solid #eaeaea;
-            z-index: 1000;
-            padding: 20px 0;
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 400;
-            color: #222;
-            text-decoration: none;
-            letter-spacing: 1px;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 35px;
-            align-items: center;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #555;
-            font-weight: 400;
-            transition: color 0.3s;
-            font-size: 0.95rem;
-            letter-spacing: 0.5px;
-        }
-
-        .nav-links a:hover {
-            color: #222;
-        }
-
-        .nav-links .cta-button {
-            padding: 8px 25px;
-            margin: 0;
         }
 
         /* Projects Section */
@@ -181,6 +295,11 @@
             width: 50px;
             height: 2px;
             background-color: #222;
+            transition: width 0.5s ease;
+        }
+
+        .section-title:hover:after {
+            width: 100px;
         }
 
         .projects-grid {
@@ -192,9 +311,14 @@
 
         .project-card {
             background: #fff;
-            transition: transform 0.3s ease;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
             border-bottom: 1px solid #eee;
             padding-bottom: 30px;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
         }
 
         .project-card:last-child {
@@ -210,6 +334,11 @@
             margin-bottom: 8px;
             color: #222;
             font-weight: 400;
+            transition: color 0.3s ease;
+        }
+
+        .project-card:hover h3 {
+            color: #555;
         }
 
         .project-subtitle {
@@ -241,11 +370,26 @@
             letter-spacing: 1px;
             text-decoration: none;
             display: inline-block;
+            position: relative;
+        }
+
+        .view-project::after {
+            content: '→';
+            position: absolute;
+            right: -20px;
+            opacity: 0;
+            transition: all 0.3s ease;
         }
 
         .view-project:hover {
             background-color: #222;
             color: #fff;
+            padding-right: 35px;
+        }
+
+        .view-project:hover::after {
+            right: 10px;
+            opacity: 1;
         }
 
         /* Project Images */
@@ -262,11 +406,11 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.3s ease;
+            transition: transform 0.5s ease;
         }
 
         .project-card:hover .project-image img {
-            transform: scale(1.05);
+            transform: scale(1.08);
         }
 
         /* About Section */
@@ -286,6 +430,29 @@
             background: #fff;
             padding: 40px;
             border: 1px solid #eee;
+            transition: all 0.4s ease;
+            position: relative;
+        }
+
+        .approach-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: #222;
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .approach-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .approach-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
         }
 
         .approach-card h3 {
@@ -313,6 +480,14 @@
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 40px;
             margin-top: 30px;
+        }
+
+        .stat-item {
+            transition: transform 0.3s ease;
+        }
+
+        .stat-item:hover {
+            transform: scale(1.05);
         }
 
         .stat-item h3 {
@@ -354,12 +529,15 @@
             font-size: 1rem;
             background: #fafafa;
             border-radius: 0;
+            transition: all 0.3s ease;
         }
 
         input:focus {
             outline: none;
             border-color: #222;
             background: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
         }
 
         /* Footer */
@@ -389,6 +567,11 @@
         .footer p {
             line-height: 1.8;
             margin-bottom: 10px;
+            transition: color 0.3s ease;
+        }
+
+        .footer p:hover {
+            color: #fff;
         }
 
         .copyright {
@@ -407,6 +590,11 @@
             font-size: 1.5rem;
             cursor: pointer;
             color: #222;
+            transition: transform 0.3s ease;
+        }
+
+        .mobile-menu-btn:hover {
+            transform: rotate(90deg);
         }
 
         @media (max-width: 768px) {
@@ -450,8 +638,10 @@
                 background: white;
                 padding: 20px;
                 border: 1px solid #eee;
+                box-shadow: 0 5px 20px rgba(0,0,0,0.1);
                 gap: 15px;
                 min-width: 200px;
+                border-radius: 8px;
             }
 
             .mobile-menu-btn {
@@ -472,17 +662,11 @@
                 height: 200px;
             }
         }
-
-        /* Estilo para links ativos */
-        .nav-links a.active {
-            color: #222;
-            font-weight: 500;
-        }
     </style>
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="nav">
+    <nav class="nav" id="nav">
         <div class="container nav-container">
             <a href="#" class="logo">CRISTIAN</a>
             <div class="nav-links" id="navLinks">
@@ -495,7 +679,7 @@
         </div>
     </nav>
 
-    <!-- Hero Section COM SUA FOTO -->
+    <!-- Hero Section -->
     <section class="hero">
         <div class="container">
             <div class="hero-content">
@@ -509,7 +693,7 @@
                 </div>
                 <div class="hero-image">
                     <img src="assets/profile.png" alt="Cristian" class="profile-photo" 
-                         onerror="this.src='https://via.placeholder.com/300x300/667eea/ffffff?text=CRISTIAN'">
+                         onerror="this.src='https://via.placeholder.com/300x300/222222/ffffff?text=CRISTIAN'">
                 </div>
             </div>
         </div>
@@ -518,7 +702,7 @@
     <!-- Projects Section -->
     <section class="projects" id="projetos">
         <div class="container">
-            <h2 class="section-title">Projetos</h2>
+            <h2 class="section-title animate-on-scroll">Projetos</h2>
             <div class="projects-grid" id="projectsGrid">
                 <!-- Projetos serão carregados via JavaScript -->
             </div>
@@ -528,13 +712,13 @@
     <!-- About Section -->
     <section class="about" id="sobre">
         <div class="container">
-            <h2 class="section-title">Minha Abordagem</h2>
+            <h2 class="section-title animate-on-scroll">Minha Abordagem</h2>
             <div class="approach-grid">
-                <div class="approach-card">
+                <div class="approach-card animate-on-scroll">
                     <h3>Colaborativo</h3>
                     <p>Eu acredito na colaboração para criar sites excepcionais. Como extensão da sua equipe, eu me envolvo na sua visão e nas suas metas. Trabalho em estreita colaboração com você para desenvolver um site que não só reflita sua marca como supere suas expectativas.</p>
                 </div>
-                <div class="approach-card">
+                <div class="approach-card animate-on-scroll">
                     <h3>Iterativo</h3>
                     <p>Adoto uma abordagem iterativa no meu trabalho para que o resultado final se alinhe à sua visão criativa e reflita a identidade exclusiva da sua marca. Trabalharemos juntos para refinar e ajustar o design do seu site, sem deixar nenhum detalhe de lado.</p>
                 </div>
@@ -546,15 +730,15 @@
     <section class="stats">
         <div class="container">
             <div class="stats-grid">
-                <div class="stat-item">
+                <div class="stat-item animate-on-scroll">
                     <h3>2+</h3>
                     <p>Sites Criados</p>
                 </div>
-                <div class="stat-item">
+                <div class="stat-item animate-on-scroll">
                     <h3>2</h3>
                     <p>Aplicativos Profissionais</p>
                 </div>
-                <div class="stat-item">
+                <div class="stat-item animate-on-scroll">
                     <h3>100%</h3>
                     <p>Focado na Comunidade</p>
                 </div>
@@ -565,8 +749,8 @@
     <!-- Newsletter Section -->
     <section class="newsletter" id="contato">
         <div class="container">
-            <h2 class="section-title">Receba Atualizações Exclusivas</h2>
-            <form class="newsletter-form" id="newsletterForm">
+            <h2 class="section-title animate-on-scroll">Receba Atualizações Exclusivas</h2>
+            <form class="newsletter-form animate-on-scroll" id="newsletterForm">
                 <div class="form-group">
                     <input type="text" id="firstName" placeholder="Nome" required>
                     <input type="text" id="lastName" placeholder="Sobrenome" required>
@@ -583,9 +767,9 @@
             <div class="footer-content">
                 <div>
                     <h3>Contato</h3>
-                    <p>123 Rua Exemplo, Nova York NY</p>
-                    <p>(055) 99955-5555</p>
-                    <p>e-mail@exemplo.com</p>
+                    <p>São Paulo, SP</p>
+                    <p>(11) 95373-9811</p>
+                    <p>cristur.ihc@gmial.com</p>
                 </div>
                 <div>
                     <h3>Formação</h3>
@@ -604,7 +788,7 @@
     </footer>
 
     <script>
-        // Dados dos 2 projetos com imagens
+        // Dados dos projetos
         const projects = [
             {
                 title: "Aura",
@@ -622,17 +806,18 @@
             }
         ];
 
-        // Carrega os projetos com imagens
+        // Carregar projetos
         function loadProjects() {
             const projectsGrid = document.getElementById('projectsGrid');
             projectsGrid.innerHTML = '';
             
-            projects.forEach(project => {
+            projects.forEach((project, index) => {
                 const projectCard = document.createElement('div');
-                projectCard.className = 'project-card';
+                projectCard.className = 'project-card animate-on-scroll';
+                projectCard.style.transitionDelay = `${index * 0.1}s`;
                 projectCard.innerHTML = `
                     <div class="project-image">
-                        <img src="${project.image}" alt="${project.title}" onerror="this.src='https://via.placeholder.com/500x250/667eea/ffffff?text=${project.title}'">
+                        <img src="${project.image}" alt="${project.title}" onerror="this.src='https://via.placeholder.com/500x250/222222/ffffff?text=${project.title}'">
                     </div>
                     <div class="project-content">
                         <h3>${project.title}</h3>
@@ -645,10 +830,26 @@
             });
         }
 
-        // Newsletter Form Handler
+        // Animação ao scroll
+        function handleScrollAnimation() {
+            const elements = document.querySelectorAll('.animate-on-scroll');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animated');
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            elements.forEach(element => observer.observe(element));
+        }
+
+        // Newsletter
         document.getElementById('newsletterForm').addEventListener('submit', function(e) {
             e.preventDefault();
-            
             const firstName = document.getElementById('firstName').value;
             const lastName = document.getElementById('lastName').value;
             const email = document.getElementById('email').value;
@@ -661,7 +862,7 @@
             }
         });
 
-        // Mobile Menu Toggle
+        // Mobile Menu
         document.getElementById('mobileMenuBtn').addEventListener('click', function() {
             const navLinks = document.getElementById('navLinks');
             const isVisible = navLinks.style.display === 'flex';
@@ -685,7 +886,7 @@
             });
         });
 
-        // Ativa link de navegação atual
+        // Active Nav Link
         function setActiveNavLink() {
             const sections = document.querySelectorAll('section[id]');
             const navLinks = document.querySelectorAll('.nav-links a[href^="#"]');
@@ -712,20 +913,21 @@
             });
         }
 
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
         // Inicialização
         document.addEventListener('DOMContentLoaded', () => {
             loadProjects();
+            handleScrollAnimation();
             setActiveNavLink();
-        });
-
-        // Efeito ao rolar
-        window.addEventListener('scroll', function() {
-            const nav = document.querySelector('.nav');
-            if (window.scrollY > 50) {
-                nav.style.boxShadow = '0 2px 10px rgba(0,0,0,0.1)';
-            } else {
-                nav.style.boxShadow = 'none';
-            }
         });
     </script>
 </body>
