@@ -4,6 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Todos os Projetos - Cristian</title>
+    
+    <!-- ÍCONES ADICIONADOS -->
+    <link rel="icon" type="image/png" href="assets/img5.png">
+    <link rel="apple-touch-icon" href="assets/img5.png">
+    <link rel="shortcut icon" href="assets/img5.png">
+    
     <style>
         * {
             margin: 0;
@@ -16,6 +22,130 @@
             background-color: #f5f5f5;
             color: #333;
             line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ===== ANIMAÇÕES NOVAS ===== */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes fadeInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        /* Classes de animação */
+        .animate-fade-in { 
+            animation: fadeIn 1s ease forwards; 
+        }
+
+        .animate-fade-up { 
+            animation: fadeInUp 0.8s ease forwards; 
+        }
+
+        .animate-fade-left { 
+            animation: fadeInLeft 0.8s ease forwards; 
+        }
+
+        .animate-fade-right { 
+            animation: fadeInRight 0.8s ease forwards; 
+        }
+
+        .animate-slide-down { 
+            animation: slideInDown 0.6s ease forwards; 
+        }
+
+        .animate-scale-in { 
+            animation: scaleIn 0.6s ease forwards; 
+        }
+
+        .animate-float { 
+            animation: float 6s ease-in-out infinite; 
+        }
+
+        /* Animações ao scroll */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .animate-on-scroll.fade-left {
+            transform: translateX(-30px);
+        }
+
+        .animate-on-scroll.fade-left.animated {
+            transform: translateX(0);
+        }
+
+        .animate-on-scroll.fade-right {
+            transform: translateX(30px);
+        }
+
+        .animate-on-scroll.fade-right.animated {
+            transform: translateX(0);
         }
 
         .container {
@@ -30,9 +160,17 @@
             top: 0;
             width: 100%;
             background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
             border-bottom: 1px solid #eaeaea;
             z-index: 1000;
             padding: 20px 0;
+            transition: all 0.3s ease;
+            animation: slideInDown 0.5s ease;
+        }
+
+        .nav.scrolled {
+            padding: 15px 0;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
         }
 
         .nav-container {
@@ -47,6 +185,14 @@
             color: #222;
             text-decoration: none;
             letter-spacing: 1px;
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeIn 0.8s ease 0.2s forwards;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+            color: #555;
         }
 
         .nav-links {
@@ -59,18 +205,38 @@
             text-decoration: none;
             color: #555;
             font-weight: 400;
-            transition: color 0.3s;
+            transition: all 0.3s ease;
             font-size: 0.95rem;
             letter-spacing: 0.5px;
+            position: relative;
+            opacity: 0;
+            animation: fadeIn 0.8s ease forwards;
         }
 
-        .nav-links a:hover {
-            color: #222;
+        .nav-links a:nth-child(1) { animation-delay: 0.3s; }
+        .nav-links a:nth-child(2) { animation-delay: 0.4s; }
+        .nav-links a:nth-child(3) { animation-delay: 0.5s; }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #222;
+            transition: width 0.3s ease;
         }
 
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover,
         .nav-links a.active {
             color: #222;
-            font-weight: 500;
+            transform: translateY(-2px);
         }
 
         /* Page Header */
@@ -79,6 +245,8 @@
             padding: 140px 0 60px;
             text-align: center;
             border-bottom: 1px solid #eaeaea;
+            opacity: 0;
+            animation: fadeInUp 0.8s ease 0.3s forwards;
         }
 
         .page-header h1 {
@@ -87,6 +255,9 @@
             color: #222;
             letter-spacing: -0.5px;
             margin-bottom: 15px;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease 0.4s forwards;
         }
 
         .page-header p {
@@ -94,6 +265,9 @@
             font-size: 1.1rem;
             max-width: 600px;
             margin: 0 auto;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease 0.5s forwards;
         }
 
         /* Projects List */
@@ -109,6 +283,8 @@
             margin-bottom: 60px;
             padding-bottom: 60px;
             border-bottom: 1px solid #eee;
+            transition: all 0.4s ease;
+            opacity: 0;
         }
 
         .project-item:last-child {
@@ -117,23 +293,33 @@
             padding-bottom: 0;
         }
 
+        .project-item:hover {
+            transform: translateY(-5px);
+        }
+
         .project-image {
             width: 100%;
             height: 200px;
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: all 0.4s ease;
+        }
+
+        .project-item:hover .project-image {
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+            transform: scale(1.02);
         }
 
         .project-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.3s ease;
+            transition: transform 0.6s ease;
         }
 
         .project-item:hover .project-image img {
-            transform: scale(1.05);
+            transform: scale(1.08);
         }
 
         .project-info h3 {
@@ -141,6 +327,11 @@
             margin-bottom: 10px;
             color: #222;
             font-weight: 400;
+            transition: color 0.3s ease;
+        }
+
+        .project-item:hover .project-info h3 {
+            color: #555;
         }
 
         .project-category {
@@ -153,12 +344,24 @@
             margin-bottom: 15px;
             text-transform: uppercase;
             letter-spacing: 1px;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeInUp 0.6s ease forwards;
+        }
+
+        .project-item:hover .project-category {
+            background: #555;
+            transform: translateY(-2px);
         }
 
         .project-description {
             color: #666;
             margin-bottom: 20px;
             line-height: 1.7;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeInUp 0.6s ease 0.2s forwards;
         }
 
         .view-project {
@@ -172,11 +375,32 @@
             text-transform: uppercase;
             letter-spacing: 1px;
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeInUp 0.6s ease 0.3s forwards;
+        }
+
+        .view-project::after {
+            content: '→';
+            position: absolute;
+            right: -20px;
+            opacity: 0;
+            transition: all 0.3s ease;
         }
 
         .view-project:hover {
             background-color: #222;
             color: #fff;
+            padding-right: 35px;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .view-project:hover::after {
+            right: 10px;
+            opacity: 1;
         }
 
         /* Back Button */
@@ -184,20 +408,29 @@
             text-align: center;
             padding: 40px 0;
             background-color: #f9f9f9;
+            border-top: 1px solid #eee;
+            opacity: 0;
+            animation: fadeIn 0.8s ease 0.8s forwards;
         }
 
         .back-button {
             display: inline-block;
             text-decoration: none;
             color: #666;
-            transition: color 0.3s;
+            transition: all 0.3s;
             font-size: 1rem;
+            padding: 10px 20px;
+            border: 1px solid transparent;
+            border-radius: 2px;
         }
 
         .back-button:hover {
             color: #222;
+            border-color: #222;
+            transform: translateX(-5px);
         }
 
+        /* Media Queries */
         @media (max-width: 768px) {
             .project-item {
                 grid-template-columns: 1fr;
@@ -207,12 +440,49 @@
             .project-image {
                 height: 250px;
             }
+            
+            .page-header h1 {
+                font-size: 2.2rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+
+        /* Efeitos de entrada */
+        .stagger-item:nth-child(1) { animation-delay: 0.1s; }
+        .stagger-item:nth-child(2) { animation-delay: 0.2s; }
+        .stagger-item:nth-child(3) { animation-delay: 0.3s; }
+
+        /* Efeito de brilho ao hover */
+        .glow-on-hover {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .glow-on-hover::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #222, #555, #222, #555);
+            z-index: -1;
+            filter: blur(10px);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .glow-on-hover:hover::before {
+            opacity: 0.5;
         }
     </style>
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="nav">
+    <nav class="nav" id="nav">
         <div class="container nav-container">
             <a href="index.html" class="logo">CRISTIAN</a>
             <div class="nav-links">
@@ -235,7 +505,7 @@
     <section class="projects-list">
         <div class="container">
             <!-- Projeto Aura -->
-            <div class="project-item">
+            <div class="project-item animate-on-scroll stagger-item">
                 <div class="project-image">
                     <img src="assets/img.png" alt="Aura App" 
                          onerror="this.src='https://via.placeholder.com/400x250/667eea/ffffff?text=AURA+APP'">
@@ -247,12 +517,12 @@
                         Aplicativo inovador de realidade aumentada que transforma cartas físicas em experiências mágicas interativas. 
                         Escaneie cartas especiais para descobrir animações 3D, informações e jogos exclusivos.
                     </p>
-                    <a href="aura.html" class="view-project">Ver Detalhes do Projeto</a>
+                    <a href="aura.html" class="view-project glow-on-hover">Ver Detalhes do Projeto</a>
                 </div>
             </div>
 
             <!-- Projeto Color Dreams -->
-            <div class="project-item">
+            <div class="project-item animate-on-scroll stagger-item">
                 <div class="project-image">
                     <img src="assets/img3.png" alt="Color Dreams App" 
                          onerror="this.src='https://via.placeholder.com/400x250/ff9a9e/ffffff?text=COLOR+DREAMS'">
@@ -264,7 +534,7 @@
                         Aplicativo educativo para crianças com desenhos fofinhos para colorir no estilo Bobies. 
                         Interface simples e intuitiva, ferramentas de pintura diversas e mais de 200 desenhos gratuitos.
                     </p>
-                    <a href="colordream.html" class="view-project">Ver Detalhes do Projeto</a>
+                    <a href="colordream.html" class="view-project glow-on-hover">Ver Detalhes do Projeto</a>
                 </div>
             </div>
         </div>
@@ -276,5 +546,124 @@
             <a href="index.html" class="back-button">← Voltar para o início</a>
         </div>
     </section>
+
+    <script>
+        // Animação ao scroll
+        function handleScrollAnimation() {
+            const elements = document.querySelectorAll('.animate-on-scroll');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('animated');
+                    }
+                });
+            }, {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            });
+
+            elements.forEach(element => observer.observe(element));
+        }
+
+        // Efeito de digitação no título
+        function typeWriterEffect() {
+            const title = document.querySelector('.page-header h1');
+            if (!title) return;
+            
+            const text = title.textContent;
+            title.textContent = '';
+            
+            let i = 0;
+            function type() {
+                if (i < text.length) {
+                    title.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(type, 50);
+                }
+            }
+            
+            setTimeout(type, 600);
+        }
+
+        // Animação de entrada dos projetos
+        function animateProjects() {
+            const projectItems = document.querySelectorAll('.project-item');
+            projectItems.forEach((item, index) => {
+                item.style.animationDelay = `${index * 0.2}s`;
+                item.style.animation = 'fadeInUp 0.8s ease forwards';
+            });
+        }
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
+        // Efeito de parallax suave
+        function handleParallax() {
+            const scrolled = window.pageYOffset;
+            const rate = scrolled * -0.5;
+            
+            const header = document.querySelector('.page-header');
+            if (header) {
+                header.style.transform = `translateY(${rate}px)`;
+            }
+        }
+
+        // Hover effects
+        function initHoverEffects() {
+            const projectItems = document.querySelectorAll('.project-item');
+            projectItems.forEach(item => {
+                item.addEventListener('mouseenter', () => {
+                    item.style.transform = 'translateY(-8px)';
+                    item.style.boxShadow = '0 20px 40px rgba(0,0,0,0.1)';
+                });
+                
+                item.addEventListener('mouseleave', () => {
+                    item.style.transform = 'translateY(0)';
+                    item.style.boxShadow = 'none';
+                });
+            });
+        }
+
+        // Inicialização
+        document.addEventListener('DOMContentLoaded', () => {
+            handleScrollAnimation();
+            typeWriterEffect();
+            animateProjects();
+            initHoverEffects();
+            
+            // Animar elementos visíveis no carregamento
+            setTimeout(() => {
+                const scrollElements = document.querySelectorAll('.animate-on-scroll');
+                scrollElements.forEach(element => {
+                    const rect = element.getBoundingClientRect();
+                    if (rect.top < window.innerHeight - 100) {
+                        element.classList.add('animated');
+                    }
+                });
+            }, 500);
+
+            // Efeito parallax no scroll
+            window.addEventListener('scroll', handleParallax);
+        });
+
+        // Efeito de digitação para os títulos dos projetos
+        document.querySelectorAll('.project-info h3').forEach(title => {
+            title.addEventListener('mouseenter', () => {
+                const originalText = title.textContent;
+                title.style.letterSpacing = '1px';
+                setTimeout(() => {
+                    title.style.letterSpacing = '0.5px';
+                }, 200);
+            });
+        });
+    </script>
 </body>
 </html>
