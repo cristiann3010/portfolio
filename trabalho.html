@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trabalhe Comigo - Cristian</title>
+
+<link rel="icon" type="image/png" href="assets/img5.png">
+    <link rel="apple-touch-icon" href="assets/img5.png">
+    <link rel="shortcut icon" href="assets/img5.png">
+
     
     <style>
         * {
@@ -17,6 +22,72 @@
             background-color: #f5f5f5;
             color: #333;
             line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ===== ANIMAÇÕES ===== */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .animate-on-scroll.animated {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .container {
@@ -31,9 +102,17 @@
             top: 0;
             width: 100%;
             background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
             border-bottom: 1px solid #eaeaea;
             z-index: 1000;
             padding: 20px 0;
+            transition: all 0.3s ease;
+            animation: slideDown 0.5s ease;
+        }
+
+        .nav.scrolled {
+            padding: 15px 0;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
         }
 
         .nav-container {
@@ -48,6 +127,11 @@
             color: #222;
             text-decoration: none;
             letter-spacing: 1px;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
         }
 
         .nav-links {
@@ -63,15 +147,28 @@
             transition: color 0.3s;
             font-size: 0.95rem;
             letter-spacing: 0.5px;
+            position: relative;
         }
 
-        .nav-links a:hover {
-            color: #222;
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #222;
+            transition: width 0.3s ease;
         }
 
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover,
         .nav-links a.active {
             color: #222;
-            font-weight: 500;
         }
 
         /* Page Header */
@@ -88,6 +185,7 @@
             color: #222;
             letter-spacing: -0.5px;
             margin-bottom: 15px;
+            animation: slideDown 0.8s ease;
         }
 
         .page-header p {
@@ -95,6 +193,7 @@
             font-size: 1.1rem;
             max-width: 600px;
             margin: 0 auto;
+            animation: slideUp 0.8s ease 0.2s backwards;
         }
 
         /* Contact Section */
@@ -110,7 +209,16 @@
             align-items: start;
         }
 
-        .contact-info h2 {
+        .contact-info {
+            animation: slideInLeft 0.8s ease 0.3s backwards;
+        }
+
+        .contact-form {
+            animation: slideInRight 0.8s ease 0.3s backwards;
+        }
+
+        .contact-info h2,
+        .contact-form h2 {
             font-size: 1.8rem;
             margin-bottom: 30px;
             font-weight: 400;
@@ -119,7 +227,8 @@
             padding-bottom: 10px;
         }
 
-        .contact-info h2:after {
+        .contact-info h2:after,
+        .contact-form h2:after {
             content: '';
             position: absolute;
             bottom: 0;
@@ -127,6 +236,12 @@
             width: 50px;
             height: 2px;
             background-color: #222;
+            transition: width 0.5s ease;
+        }
+
+        .contact-info h2:hover:after,
+        .contact-form h2:hover:after {
+            width: 100px;
         }
 
         .contact-details {
@@ -135,13 +250,24 @@
 
         .contact-item {
             margin-bottom: 25px;
+            opacity: 0;
+            animation: fadeIn 0.6s ease forwards;
         }
+
+        .contact-item:nth-child(1) { animation-delay: 0.5s; }
+        .contact-item:nth-child(2) { animation-delay: 0.6s; }
+        .contact-item:nth-child(3) { animation-delay: 0.7s; }
 
         .contact-item h3 {
             font-size: 1.3rem;
             margin-bottom: 10px;
             color: #222;
             font-weight: 400;
+            transition: color 0.3s ease;
+        }
+
+        .contact-item:hover h3 {
+            color: #555;
         }
 
         .contact-item p {
@@ -153,31 +279,26 @@
             height: 1px;
             background-color: #eee;
             margin: 40px 0;
+            transform: scaleX(0);
+            animation: expandWidth 0.8s ease 0.8s forwards;
+        }
+
+        @keyframes expandWidth {
+            to { transform: scaleX(1); }
         }
 
         /* Form Styles */
-        .contact-form h2 {
-            font-size: 1.8rem;
-            margin-bottom: 30px;
-            font-weight: 400;
-            color: #222;
-            position: relative;
-            padding-bottom: 10px;
-        }
-
-        .contact-form h2:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 50px;
-            height: 2px;
-            background-color: #222;
-        }
-
         .form-group {
             margin-bottom: 25px;
+            opacity: 0;
+            animation: slideUp 0.5s ease forwards;
         }
+
+        .form-group:nth-child(1) { animation-delay: 0.5s; }
+        .form-group:nth-child(2) { animation-delay: 0.6s; }
+        .form-group:nth-child(3) { animation-delay: 0.7s; }
+        .form-group:nth-child(4) { animation-delay: 0.8s; }
+        .form-group:nth-child(5) { animation-delay: 0.9s; }
 
         .form-group label {
             display: block;
@@ -202,7 +323,8 @@
             outline: none;
             border-color: #222;
             background: #fff;
-            box-shadow: 0 0 0 2px rgba(34, 34, 34, 0.1);
+            transform: translateY(-2px);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.05);
         }
 
         textarea {
@@ -227,11 +349,35 @@
             font-size: 0.9rem;
             cursor: pointer;
             width: 100%;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            animation: slideUp 0.5s ease 1s forwards;
+        }
+
+        .submit-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.5s, height 0.5s;
+        }
+
+        .submit-button:hover:not(:disabled)::before {
+            width: 300px;
+            height: 300px;
         }
 
         .submit-button:hover:not(:disabled) {
             background-color: transparent;
             color: #222;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
         .submit-button:disabled {
@@ -248,12 +394,7 @@
             margin-top: 20px;
             text-align: center;
             display: none;
-            animation: fadeIn 0.3s ease;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
+            animation: slideUp 0.3s ease;
         }
 
         .success-message {
@@ -286,12 +427,13 @@
             display: inline-block;
             text-decoration: none;
             color: #666;
-            transition: color 0.3s;
+            transition: all 0.3s;
             font-size: 1rem;
         }
 
         .back-button:hover {
             color: #222;
+            transform: translateX(-5px);
         }
 
         @media (max-width: 768px) {
@@ -307,12 +449,17 @@
             .page-header h1 {
                 font-size: 2.2rem;
             }
+
+            .contact-info,
+            .contact-form {
+                animation: slideUp 0.8s ease 0.3s backwards;
+            }
         }
     </style>
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="nav">
+    <nav class="nav" id="nav">
         <div class="container nav-container">
             <a href="index.html" class="logo">CRISTIAN</a>
             <div class="nav-links">
@@ -348,7 +495,7 @@
                         
                         <div class="contact-item">
                             <h3>Email</h3>
-                            <p>boolbie.gods@gmail.com</p>
+                            <p>cristur.ihc@gmail.com</p>
                         </div>
                         
                         <div class="contact-item">
@@ -359,7 +506,7 @@
 
                     <div class="divider"></div>
 
-                    <div class="contact-item">
+                    <div class="contact-item" style="animation-delay: 0.9s;">
                         <h3>Áreas de Atuação</h3>
                         <p>• Design de Interfaces (UI/UX)<br>
                            • Desenvolvimento Front-end<br>
@@ -374,7 +521,6 @@
                     <h2>Envie sua Mensagem</h2>
                     
                     <form id="contactForm" action="https://formspree.io/f/xanrvkgj" method="POST">
-                        <!-- Campos ocultos para configuração do Formspree -->
                         <input type="hidden" name="_subject" value="Novo contato do portfólio - Trabalhe Comigo">
                         <input type="hidden" name="_language" value="pt">
                         <input type="hidden" name="_format" value="plain">
@@ -424,7 +570,6 @@
                         <button type="submit" class="submit-button" id="submitButton">Enviar Mensagem</button>
                     </form>
                     
-                    <!-- Status Messages -->
                     <div id="loadingMessage" class="status-message loading-message">
                         <p>🔄 Enviando sua mensagem...</p>
                     </div>
@@ -449,6 +594,16 @@
     </section>
 
     <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function() {
+            const nav = document.getElementById('nav');
+            if (window.scrollY > 50) {
+                nav.classList.add('scrolled');
+            } else {
+                nav.classList.remove('scrolled');
+            }
+        });
+
         // Elementos do DOM
         const contactForm = document.getElementById('contactForm');
         const submitButton = document.getElementById('submitButton');
@@ -456,21 +611,18 @@
         const successMessage = document.getElementById('successMessage');
         const errorMessage = document.getElementById('errorMessage');
 
-        // Função para mostrar/esconder mensagens
         function showMessage(element) {
             [loadingMessage, successMessage, errorMessage].forEach(msg => {
                 msg.style.display = 'none';
             });
             if (element) {
                 element.style.display = 'block';
-                // Rolagem suave para a mensagem
                 setTimeout(() => {
                     element.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 }, 100);
             }
         }
 
-        // Função para habilitar/desabilitar o formulário
         function setFormState(isSubmitting) {
             submitButton.disabled = isSubmitting;
             submitButton.textContent = isSubmitting ? 'Enviando...' : 'Enviar Mensagem';
@@ -483,26 +635,21 @@
             });
         }
 
-        // Função principal de envio via Formspree AJAX
         contactForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            // Validação do formulário
             if (!contactForm.checkValidity()) {
                 alert('Por favor, preencha todos os campos obrigatórios (*) corretamente.');
                 return;
             }
             
-            // Preparar dados do formulário
             const formData = new FormData(contactForm);
             const data = Object.fromEntries(formData.entries());
             
             try {
-                // Mostrar estado de carregamento
                 setFormState(true);
                 showMessage(loadingMessage);
                 
-                // Enviar via Formspree API
                 const response = await fetch(contactForm.action, {
                     method: 'POST',
                     headers: {
@@ -513,67 +660,38 @@
                 });
                 
                 if (response.ok) {
-                    // Sucesso
-                    console.log('✅ Mensagem enviada com sucesso via Formspree!');
+                    console.log('✅ Mensagem enviada com sucesso!');
                     showMessage(successMessage);
                     contactForm.reset();
                     
-                    // Ocultar mensagem após 8 segundos
                     setTimeout(() => {
                         showMessage(null);
                     }, 8000);
                     
                 } else {
-                    // Erro da API
-                    throw new Error(`Formspree retornou status: ${response.status}`);
+                    throw new Error(`Erro: ${response.status}`);
                 }
                 
             } catch (error) {
-                console.error('❌ Erro ao enviar formulário:', error);
+                console.error('❌ Erro:', error);
+                showMessage(errorMessage);
                 
-                // Tentar enviar pelo método tradicional (fallback)
-                try {
-                    console.log('🔄 Tentando fallback para submit normal...');
-                    showMessage(loadingMessage);
-                    
-                    // Criar um clone do formulário e enviar normalmente
-                    const tempForm = contactForm.cloneNode(true);
-                    tempForm.style.display = 'none';
-                    document.body.appendChild(tempForm);
-                    
-                    // Usar submit tradicional do Formspree
-                    tempForm.submit();
-                    
-                    // Mostrar mensagem de sucesso (assumindo que funciona)
-                    setTimeout(() => {
-                        showMessage(successMessage);
-                        contactForm.reset();
-                        setFormState(false);
-                    }, 1500);
-                    
-                } catch (fallbackError) {
-                    // Fallback também falhou
-                    console.error('❌ Fallback também falhou:', fallbackError);
-                    showMessage(errorMessage);
-                    
-                    // Ocultar mensagem de erro após 5 segundos
-                    setTimeout(() => {
-                        showMessage(null);
-                    }, 5000);
-                }
+                setTimeout(() => {
+                    showMessage(null);
+                }, 5000);
                 
             } finally {
                 setFormState(false);
             }
         });
 
-        // Validação em tempo real
+        // Validação visual
         const inputs = contactForm.querySelectorAll('input, select, textarea');
         inputs.forEach(input => {
             input.addEventListener('blur', function() {
                 if (this.required && !this.value.trim()) {
                     this.style.borderColor = '#dc3545';
-                } else {
+                } else if (this.value.trim()) {
                     this.style.borderColor = '#28a745';
                 }
             });
@@ -581,29 +699,6 @@
             input.addEventListener('input', function() {
                 this.style.borderColor = '#ddd';
             });
-        });
-
-        // Verificação da configuração do Formspree
-        window.addEventListener('DOMContentLoaded', function() {
-            console.log('🔧 Formspree configurado com URL:', contactForm.action);
-            
-            // Verificar se o Formspree está configurado corretamente
-            if (!contactForm.action.includes('formspree.io/f/')) {
-                console.warn('⚠️ URL do Formspree não configurada corretamente!');
-                const warning = document.createElement('div');
-                warning.style.cssText = 'background: #fff3cd; border: 1px solid #ffeaa7; padding: 10px; margin-bottom: 20px; border-radius: 4px;';
-                warning.innerHTML = '<strong>⚠️ Configuração necessária:</strong> Verifique se a URL do Formspree está correta no atributo action do formulário.';
-                contactForm.parentNode.insertBefore(warning, contactForm);
-            }
-            
-            // Preenchimento automático para testes (remova em produção)
-            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-                console.log('🧪 Modo de teste ativado - preenchendo dados de exemplo');
-                document.getElementById('fullName').value = 'João Silva';
-                document.getElementById('email').value = 'joao@exemplo.com';
-                document.getElementById('subject').value = 'Website/Portfólio';
-                document.getElementById('message').value = 'Olá! Gostaria de mais informações sobre o desenvolvimento de um site para minha empresa.';
-            }
         });
     </script>
 </body>
